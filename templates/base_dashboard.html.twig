@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
+  <title>{% block title %}Admin Dashboard | Three D Cellshop{% endblock %}</title>
+
+  {{ encore_entry_link_tags('app') }}
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#FF000D',
+            dark: '#0D0D0D',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-black text-red-600 flex flex-col p-4 shadow-lg">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-2 mb-8">
+      <img src="{{ asset('image/logo.png') }}" alt="Logo" class="w-10 h-10 rounded-sm">
+      <h1 class="text-xl font-serif text-red-600 font-bold">3D Cellshop Dashboard</h1>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 space-y-3 font-serif text-xl">
+      <a href="{{ path('app_part_index') }}" 
+      class="flex items-center space-x-2 p-2 rounded-lg transition
+      {% if app.request.attributes.get('_route') starts with 'app_part'%}
+      bg-red-600 text-white shadow-md
+      {% else %}
+      text-red-600 hover:bg-gray-800 hover:text-white
+      {% endif %}">
+        <span>Parts</span>
+      </a>
+      <a href="{{ path('app_repair_record_index') }}"
+       class="flex items-center space-x-2 p-2 rounded-lg transition
+        {% if app.request.attributes.get('_route') starts with 'app_repair_record'%}
+      bg-red-600 text-white shadow-md
+      {% else %}
+      text-red-600 hover:bg-gray-800 hover:text-white
+      {% endif %}">
+        <span>Repair Records</span>
+      </a>
+      <a href="{{ path('app_delivery_index') }}" 
+      class="flex items-center space-x-2 p-2 rounded-lg transition
+       {% if app.request.attributes.get('_route') starts with 'app_delivery'%}
+      bg-red-600 text-white shadow-md
+      {% else %}
+      text-red-600 hover:bg-gray-800 hover:text-white
+      {% endif %}">
+        <span>Delivery</span>
+      </a>
+      <a href="{{ path('app_category_index') }}" 
+      class="flex items-center space-x-2 p-2 rounded-lg transition
+       {% if app.request.attributes.get('_route') starts with 'app_category'%}
+      bg-red-600 text-white shadow-md
+      {% else %}
+      text-red-600 hover:bg-gray-800 hover:text-white
+      {% endif %}">
+        <span>Cellphone Parts</span>
+      </a>
+    </nav>
+
+    <!-- Footer / Return -->
+    <div class="mt-auto pt-4 border-t border-gray-700">
+      <a href="{{ path('app_homepage') }}" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 transition">
+        <i class="fas fa-home text-red-500"></i>
+        <span>Back to Homepage</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="flex flex-col flex-1 bg-white text-white">
+    <!-- TOP NAVBAR -->
+    <header class="bg-white shadow-md px-8 py-4 flex items-center justify-end">
+      <h2 class="text-xl font-semibold text-gray-700">
+        Welcome, <span class="text-red-600 font-bold">Admin</span> 👋
+      </h2>
+    </header>
+
+    <!-- MAIN BODY -->
+    <main class="flex-1 p-8 overflow-y-auto>
+      <div class="bg-zinc-700 rounded-xl shadow-2xl p-8 border border-red-700">
+        {% block body %}{% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/a2d9d5a66a.js" crossorigin="anonymous"></script>
+
+{{ encore_entry_script_tags('app') }}
+
+</body>
+</html>

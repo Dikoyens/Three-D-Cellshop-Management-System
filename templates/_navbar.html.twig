@@ -12,7 +12,6 @@
 
         <!-- CENTER NAVIGATION (changes by route) -->
         <div class="flex items-center space-x-3 font-serif">
-
         
             {% if app.request.attributes.get('_route') starts with 'app_homepage' 
                 or app.request.attributes.get('_route') starts with 'about' 
@@ -23,17 +22,6 @@
                 <a href="{{ path('about') }}" class="hover:text-red-500">About</a>
                 <a href="{{ path('contact') }}" class="hover:text-red-500">Contact</a>
                 <a href="{{ path('services') }}" class="hover:text-red-500">Services</a>
-
-          
-            {% elseif app.request.attributes.get('_route') starts with 'app_part' 
-                or app.request.attributes.get('_route') starts with 'app_repair_record' 
-                or app.request.attributes.get('_route') starts with 'app_delivery'
-                or app.request.attributes.get('_route') starts with 'app_category' %}
-    
-                <a href="{{ path('app_part_index') }}" class="hover:text-red-500">Parts</a>
-                <a href="{{ path('app_repair_record_index') }}" class="hover:text-red-500">Repair Records</a>
-                <a href="{{ path('app_delivery_index') }}" class="hover:text-red-500">Delivery</a>
-                <a href="{{ path('app_category_index') }}" class="hover:text-red-500">Cellphone Parts</a>
             {% endif %}
 
 
