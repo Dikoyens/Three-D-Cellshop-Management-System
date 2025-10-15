@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Three D Cellshop - Home{% endblock %}
+
+{% block body %}
+<!-- HERO SECTION -->
+<header class="relative flex flex-col items-center justify-center text-center text-white min-h-screen w-full overflow-hidden bg-black">
+  <img 
+    src="{{ asset('image/image.png') }}" 
+    alt="Cellphone Repair Background"
+    class="absolute inset-0 w-full h-full object-cover opacity-60">
+
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
+
+  <div class="relative z-10 max-w-3xl px-6 animate-fadeIn">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+      Fast, Reliable, and <span class="text-red-600">Trusted</span> Repairs
+    </h1>
+    <p class="text-lg text-gray-200 mb-10 leading-relaxed">
+      Bringing your phone back to life with expert repair services, genuine parts, and fast turnaround times all with care you can trust.
+    </p>
+    <a 
+      href="{{ path('bookarepair') }}" 
+      class="bg-red-600 text-white px-10 py-3 rounded-xl font-semibold shadow-lg hover:bg-red-700 hover:scale-105 transition-transform duration-300"
+    >
+      Book a Repair
+    </a>
+  </div>
+</header>
+
+<!-- WHY CHOOSE US SECTION -->
+<section class="bg-black text-white py-20 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl font-bold text-red-600 mb-10">Why Choose Three D Cellshop?</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg hover:shadow-red-600/30 transition">
+        <h3 class="text-2xl font-semibold mb-3">🔧 Expert Technicians</h3>
+        <p class="text-gray-300 text-sm">Our certified repair specialists handle every device with precision and professionalism.</p>
+      </div>
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg hover:shadow-red-600/30 transition">
+        <h3 class="text-2xl font-semibold mb-3">⚡ Fast & Reliable Service</h3>
+        <p class="text-gray-300 text-sm">Get your devices repaired quickly without compromising on quality or performance.</p>
+      </div>
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg hover:shadow-red-600/30 transition">
+        <h3 class="text-2xl font-semibold mb-3">💰 Affordable & Transparent</h3>
+        <p class="text-gray-300 text-sm">We offer honest pricing, no hidden fees, and clear updates every step of the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD SIMPLE ANIMATION -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-out forwards;
+  }
+</style>
+{% endblock %}

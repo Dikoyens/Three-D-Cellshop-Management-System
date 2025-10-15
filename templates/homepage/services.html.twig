@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}Three D Cellshop - Services{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<header class="relative bg-black text-white py-24 text-center">
+  <div class="absolute inset-0 bg-[url('{{ asset('image/image.png') }}')] bg-cover bg-center opacity-40"></div>
+  <div class="relative z-10 max-w-3xl mx-auto px-6">
+    <h1 class="text-5xl font-extrabold mb-4">
+      <span class="text-red-600">Our</span> Services
+    </h1>
+    <p class="text-gray-300 text-lg">
+      At <span class="text-red-500 font-semibold">Three D Cellshop</span>, we provide fast, affordable, and reliable
+      cellphone repair and maintenance services ensuring your devices stay in top shape.
+    </p>
+  </div>
+</header>
+
+<!-- Services Section -->
+<section class="bg-black text-white py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12 text-red-600">What We Offer</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      <!-- Service 1 -->
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg border-t-4 border-red-600 text-center hover:scale-105 hover:shadow-red-600/40 transition-transform duration-300">
+        <h3 class="text-2xl font-semibold text-red-500 mb-3">🔧 Cellphone Repairs</h3>
+        <p class="text-gray-300 leading-relaxed">
+          We fix all types of smartphone issues from cracked screens and water damage to charging port
+          repairs and battery replacements. Fast, precise, and reliable service every time.
+        </p>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg border-t-4 border-red-600 text-center hover:scale-105 hover:shadow-red-600/40 transition-transform duration-300">
+        <h3 class="text-2xl font-semibold text-red-500 mb-3">⚙️ Parts & Accessories</h3>
+        <p class="text-gray-300 leading-relaxed">
+          We offer high-quality and genuine replacement parts, plus a wide selection of accessories to keep
+          your devices protected, stylish, and fully functional.
+        </p>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="bg-zinc-900 p-8 rounded-2xl shadow-lg border-t-4 border-red-600 text-center hover:scale-105 hover:shadow-red-600/40 transition-transform duration-300">
+        <h3 class="text-2xl font-semibold text-red-500 mb-3">📱 Device Optimization</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Maximize your phone’s performance with our optimization service cleaning, software updates,
+          and diagnostic checks to keep your device running like new.
+        </p>
+      </div>
+    </div>
+
+    <!-- Optional Extra Section -->
+    <div class="mt-16 text-center max-w-3xl mx-auto">
+      <h3 class="text-3xl font-bold text-red-600 mb-4">Why Choose Three D Cellshop?</h3>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        We combine years of hands-on experience with genuine care for our customers. Every repair is handled
+        with precision, transparency, and dedication because your satisfaction is our priority.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

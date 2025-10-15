@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technician Dashboard – TechTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <!-- Mobile Layout -->
+  <div class="flex flex-col h-screen">
+    <!-- Top Header -->
+    <header class="bg-indigo-700 text-white p-4 shadow-lg">
+      <h1 class="text-lg font-bold text-center">TechTrack Dashboard</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 overflow-y-auto pb-20">
+      <!-- Dashboard Section -->
+     <!-- Dashboard Area-->
+    <section id="dashboard" class="hidden">
+      <h2 class="text-xl font-bold mb-4">Dashboard</h2>
+      <div class="bg-white p-4 rounded-xl shadow h-[50vh]">
+        <div class="flex gap-2 mb-3">
+          <button onclick="updateChart('daily')" class="bg-indigo-600 text-white px-3 py-1 rounded">Daily</button>
+          <button onclick="updateChart('weekly')" class="bg-indigo-600 text-white px-3 py-1 rounded">Weekly</button>
+          <button onclick="updateChart('monthly')" class="bg-indigo-600 text-white px-3 py-1 rounded">Monthly</button>
+        </div>
+        <canvas id="incomeChart" class="w-full h-48"></canvas>
+      </div>
+    </section>
+
+      <!-- Records Section -->
+      <section id="records" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Repair Records</h2>
+        <form class="bg-white p-4 rounded-xl shadow space-y-4" onsubmit="return handleSubmit(event)">
+          <input type="text" placeholder="Customer Name" class="w-full border p-3 rounded-lg" required>
+          <input type="text" placeholder="Mobile Number" class="w-full border p-3 rounded-lg" required>
+          <input type="text" placeholder="Repair Details" class="w-full border p-3 rounded-lg" required>
+          <input type="number" placeholder="Down Payment" class="w-full border p-3 rounded-lg">
+      
+          <!-- Parts Dropdown -->
+          <select id="partsSelect" class="w-full border p-3 rounded-lg">
+            <option value="">Select Part</option>
+            <option value="LCD">LCD</option>
+            <option value="Battery">Battery</option>
+            <option value="Charger">Charger</option>
+            <option value="Speaker">Speaker</option>
+          </select>
+      
+          <!-- Selected Parts Table -->
+          <div>
+            <h3 class="text-lg font-semibold mb-2">Parts Used</h3>
+            <table class="w-full border border-gray-300 text-sm" id="partsTable">
+              <thead class="bg-gray-200">
+                <tr>
+                  <th class="border p-2">Part</th>
+                  <th class="border p-2">Qty</th>
+                  <th class="border p-2">Price</th>
+                  <th class="border p-2">Total</th>
+                  <th class="border p-2">Remove</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+      
+          <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium">Save Record</button>
+        </form>
+      </section>
+      
+      <!-- Popup Modal for Quantity -->
+      <div id="quantityModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-80">
+          <h3 class="text-lg font-bold mb-3">Enter Quantity</h3>
+          <input type="number" id="partQuantity" placeholder="Quantity" class="w-full border p-3 rounded-lg mb-3">
+          <input type="number" id="partPrice" placeholder="Price per Part" class="w-full border p-3 rounded-lg mb-3">
+          <div class="flex justify-end space-x-2">
+            <button onclick="closeModal()" class="px-4 py-2 bg-gray-400 text-white rounded-lg">Cancel</button>
+            <button onclick="saveQuantity()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Save</button>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        const partsSelect = document.getElementById("partsSelect");
+        const quantityModal = document.getElementById("quantityModal");
+        const partsTable = document.getElementById("partsTable").querySelector("tbody");
+        let selectedPart = "";
+      
+        partsSelect.addEventListener("change", function () {
+          if (this.value) {
+            selectedPart = this.value;
+            quantityModal.classList.remove("hidden");
+            quantityModal.classList.add("flex");
+          }
+        });
+      
+        function closeModal() {
+          quantityModal.classList.add("hidden");
+          quantityModal.classList.remove("flex");
+          partsSelect.value = "";
+          document.getElementById("partQuantity").value = "";
+          document.getElementById("partPrice").value = "";
+        }
+      
+        function saveQuantity() {
+          const quantity = document.getElementById("partQuantity").value;
+          const price = document.getElementById("partPrice").value;
+      
+          if (quantity && price) {
+            const total = quantity * price;
+      
+            // Add row to table
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td class="border p-2">${selectedPart}</td>
+              <td class="border p-2">${quantity}</td>
+              <td class="border p-2">${price}</td>
+              <td class="border p-2">${total}</td>
+              <td class="border p-2 text-center">
+                <button type="button" class="text-red-600 font-bold" onclick="removeRow(this)">X</button>
+              </td>
+            `;
+            partsTable.appendChild(row);
+      
+            closeModal();
+          } else {
+            alert("Please enter both quantity and price!");
+          }
+        }
+      
+        function removeRow(btn) {
+          btn.closest("tr").remove();
+        }
+      
+        function handleSubmit(e) {
+          e.preventDefault();
+      
+          // Collect parts data
+          let partsData = [];
+          partsTable.querySelectorAll("tr").forEach(row => {
+            let cols = row.querySelectorAll("td");
+            partsData.push({
+              part: cols[0].innerText,
+              qty: cols[1].innerText,
+              price: cols[2].innerText,
+              total: cols[3].innerText
+            });
+          });
+      
+          console.log("Form Submitted!");
+          console.log("Parts Used:", partsData);
+      
+          alert("Record Saved! Check console for details.");
+          return false;
+        }
+      </script>
+      
+
+      <!-- Delivery Tracker Section -->
+      <section id="delivery" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Delivery Tracker</h2>
+        <div class="bg-white p-4 rounded-xl shadow">
+          <p class="text-slate-600 text-center py-8">Track incoming parts and delivery requests here.</p>
+        </div>
+      </section>
+
+      <!-- Request Parts Section -->
+      <section id="parts" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Request Parts</h2>
+        <form class="bg-white p-4 rounded-xl shadow space-y-4">
+          <input type="text" placeholder="Customer Name" class="w-full border p-3 rounded-lg" required>
+          <input type="text" placeholder="Mobile Number" class="w-full border p-3 rounded-lg" required>
+          <input type="text" placeholder="Part Needed" class="w-full border p-3 rounded-lg" required>
+          <input type="number" placeholder="Quantity" class="w-full border p-3 rounded-lg" required>
+          <input type="number" placeholder="Price" class="w-full border p-3 rounded-lg">
+          <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium">Submit Request</button>
+        </form>
+      </section>
+
+      <!-- Commission Tracker Section -->
+      <section id="commission" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Commission Tracker</h2>
+        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
+          <table class="w-full border text-sm">
+            <thead class="bg-slate-100">
+              <tr>
+                <th class="border p-2 text-left">Date</th>
+                <th class="border p-2 text-left">Jobs Done</th>
+                <th class="border p-2 text-left">Commission</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border p-2">2025-08-28</td>
+                <td class="border p-2">3</td>
+                <td class="border p-2">₱500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg">
+      <div class="flex justify-around py-2">
+        <button onclick="showSection('dashboard')" class="flex flex-col items-center p-2 text-slate-600 hover:text-indigo-600 active-nav" id="nav-dashboard">
+          <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          <span class="text-xs">Dashboard</span>
+        </button>
+        
+        <button onclick="showSection('records')" class="flex flex-col items-center p-2 text-slate-600 hover:text-indigo-600" id="nav-records">
+          <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span class="text-xs">Records</span>
+        </button>
+        
+        <button onclick="showSection('delivery')" class="flex flex-col items-center p-2 text-slate-600 hover:text-indigo-600" id="nav-delivery">
+          <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+          <span class="text-xs">Delivery</span>
+        </button>
+        
+        <button onclick="showSection('parts')" class="flex flex-col items-center p-2 text-slate-600 hover:text-indigo-600" id="nav-parts">
+          <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span class="text-xs">Parts</span>
+        </button>
+        
+        <button onclick="showSection('commission')" class="flex flex-col items-center p-2 text-slate-600 hover:text-indigo-600" id="nav-commission">
+          <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span class="text-xs">Commission</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // Section switching
+    function showSection(id) {
+      // Hide all sections
+      document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
+      
+      // Show selected section
+      document.getElementById(id).classList.remove('hidden');
+      
+      // Update navigation active state
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active-nav');
+        btn.classList.add('text-slate-600');
+        btn.classList.remove('text-indigo-600');
+      });
+      
+      document.getElementById('nav-' + id).classList.add('active-nav', 'text-indigo-600');
+      document.getElementById('nav-' + id).classList.remove('text-slate-600');
+    }
+
+    // Initialize Chart.js
+    const ctx = document.getElementById('incomeChart');
+    let incomeChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Income',
+          data: [200, 400, 300, 500, 700, 600, 800],
+          borderColor: 'rgb(79, 70, 229)',
+          backgroundColor: 'rgba(79, 70, 229, 0.1)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(0, 0, 0, 0.1)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+
+    function updateChart(type) {
+      if (type === 'daily') {
+        incomeChart.data.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        incomeChart.data.datasets[0].data = [200, 400, 300, 500, 700, 600, 800];
+      } else if (type === 'weekly') {
+        incomeChart.data.labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        incomeChart.data.datasets[0].data = [2500, 3200, 2800, 4000];
+      } else {
+        incomeChart.data.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+        incomeChart.data.datasets[0].data = [12000, 15000, 10000, 18000, 22000];
+      }
+      incomeChart.update();
+    }
+
+    // Show default section
+    showSection('dashboard');
+  </script>
+
+  <style>
+    .active-nav {
+      color: rgb(79, 70, 229) !important;
+    }
+  </style>
+</body>
+</html>

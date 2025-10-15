@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Three D Cellshop - Cellphone Parts{% endblock %}
+
+{% block body %}
+<section class="bg-black text-white min-h-screen py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-extrabold text-center text-red-600 mb-10 font-serif">Cellphone Parts</h1>
+
+    <div class="max-h-[500px] overflow-y-auto bg-zinc-900 rounded-2xl shadow-lg border border-red-600">
+      <table class="w-full text-sm text-left text-gray-300">
+        <thead class="bg-red-600 text-white sticky top-0 z-10">
+          <tr>
+            <th class="py-3 px-6 font-semibold font-serif">ID</th>
+            <th class="py-3 px-6 font-semibold font-serif">Name</th>
+            <th class="py-3 px-6 font-semibold font-serif text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-800">
+          {% for category in categories %}
+            <tr class="hover:bg-zinc-800 transition-colors">
+              <td class="py-3 px-6">{{ category.id }}</td>
+              <td class="py-3 px-6">{{ category.name }}</td>
+              <td class="py-3 px-6 text-center space-x-3">
+                <a href="{{ path('app_category_show', {'id': category.id}) }}" 
+                   class="text-green-400 hover:text-green-500 font-semibold transition">Show</a>
+                <a href="{{ path('app_category_edit', {'id': category.id}) }}" 
+                   class="text-yellow-400 hover:text-yellow-500 font-semibold transition">Edit</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="3" class="text-center py-6 text-gray-400">No records found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="{{ path('app_category_new') }}" 
+         class="inline-block bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition">
+        + Create New Cellphone Parts
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

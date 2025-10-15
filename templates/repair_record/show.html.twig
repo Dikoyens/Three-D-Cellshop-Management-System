@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepairRecord{% endblock %}
+
+{% block body %}
+    <h1>RepairRecord</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ repair_record.id }}</td>
+            </tr>
+            <tr>
+                <th>CustomerName</th>
+                <td>{{ repair_record.customerName }}</td>
+            </tr>
+            <tr>
+                <th>MobileNumber</th>
+                <td>{{ repair_record.mobileNumber }}</td>
+            </tr>
+            <tr>
+                <th>RepairDetails</th>
+                <td>{{ repair_record.repairDetails }}</td>
+            </tr>
+            <tr>
+                <th>DownPayment</th>
+                <td>{{ repair_record.paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>PartUsed</th>
+                <td>{{ repair_record.partUsed }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_repair_record_index') }}">back to list</a>
+
+    <a href="{{ path('app_repair_record_edit', {'id': repair_record.id}) }}">edit</a>
+
+    {{ include('repair_record/_delete_form.html.twig') }}
+{% endblock %}

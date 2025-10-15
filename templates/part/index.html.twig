@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Three D Cellshop - Parts Inventory{% endblock %}
+
+{% block body %}
+<section class="bg-black text-white min-h-screen py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-extrabold text-center text-red-600 mb-10 font-serif">Parts Inventory</h1>
+
+    <div class="overflow-x-auto bg-zinc-900 rounded-2xl shadow-lg border border-red-600">
+      <table class="w-full text-sm text-left text-gray-300">
+        <thead class="text-white bg-red-600">
+          <tr>
+            <th scope="col" class="px-6 py-3 font-semibold font-serif">ID</th>
+            <th scope="col" class="px-6 py-3 font-semibold font-serif">Name</th>
+            <th scope="col" class="px-6 py-3 font-semibold font-serif">Quantity</th>
+            <th scope="col" class="px-6 py-3 font-semibold font-serif">Price</th>
+            <th scope="col" class="px-6 py-3 font-semibold font-serif text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-800">
+          {% for part in parts %}
+            <tr class="hover:bg-zinc-800 transition-colors">
+              <td class="px-6 py-3">{{ part.id }}</td>
+              <td class="px-6 py-3">{{ part.name }}</td>
+              <td class="px-6 py-3">{{ part.quantity }}</td>
+              <td class="px-6 py-3">₱{{ part.price|number_format(2, '.', ',') }}</td>
+              <td class="px-6 py-3 text-center space-x-3">
+                <a href="{{ path('app_part_show', {'id': part.id}) }}" 
+                   class="text-green-400 hover:text-green-500 font-semibold transition">Show</a>
+                <a href="{{ path('app_part_edit', {'id': part.id}) }}" 
+                   class="text-yellow-400 hover:text-yellow-500 font-semibold transition">Edit</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center py-6 text-gray-400">No parts found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="{{ path('app_part_new') }}" 
+         class="inline-block bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition">
+        + Add New Part Stock
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

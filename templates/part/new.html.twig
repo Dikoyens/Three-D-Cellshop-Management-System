@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Part | Three D Cellshop{% endblock %}
+
+{% block body %}
+<section class="min-h-screen bg-black flex items-center justify-center py-12 px-6">
+  <div class="bg-zinc-600 w-full max-w-2xl rounded-2xl shadow-2xl p-10 border border-red-600">
+    <h1 class="text-3xl font-bold text-center text-red-600 mb-8 tracking-wide">
+      Create New Part
+    </h1>
+
+    <p class="text-white text-center mb-6">
+      Add a new part to your inventory by filling out the form below.
+    </p>
+
+    <div class="space-y-6 text-black">
+      {{ include('part/_form.html.twig', { button_label: 'Save Part' }) }}
+    </div>
+
+    <div class="flex justify-center mt-8">
+      <a href="{{ path('app_part_index') }}" 
+         class="text-red-600 hover:text-red-700 transition font-medium">
+        ← Back to Parts List
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

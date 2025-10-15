@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+{% block title %}Three D Cellshop - Contact{% endblock %}
+
+{% block body %}
+<section class="bg-black text-white py-20 min-h-screen flex flex-col items-center">
+  <div class="max-w-5xl w-full px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-5xl font-extrabold mb-4 text-red-600">Get in Touch</h2>
+      <p class="text-gray-300 text-lg">
+        Need help with your device? Fill out the form or reach us through our contact details below
+        our team is always ready to assist you.
+      </p>
+    </div>
+
+    <!-- Contact & Form Grid -->
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Contact Details -->
+      <div class="bg-zinc-900 rounded-2xl p-8 shadow-lg border-l-4 border-red-600 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-bold mb-4 text-red-500">Contact Information</h3>
+          <ul class="space-y-3 text-gray-300">
+            <li>
+              <span class="block font-semibold text-white">📍 Address:</span>
+              8855+F2J, Perdices St, Dumaguete City, Negros Oriental, Three D Cellshop
+            </li>
+            <li>
+              <span class="block font-semibold text-white">📞 Phone:</span>
+              <a href="tel:09605102266" class="hover:text-red-500">0960 510 2266</a>
+            </li>
+            <li>
+              <span class="block font-semibold text-white">✉️ Email:</span>
+              <a href="mailto:Threedcellshop@gmail.com" class="hover:text-red-500">Threedcellshop@gmail.com</a>
+            </li>
+            <li>
+              <span class="block font-semibold text-white">🕒 Opening Hours:</span>
+              Monday - Sunday: 9:00 AM – 6:00 PM
+            </li>
+          </ul>
+        </div>
+
+        <!-- Need Help Section -->
+        <div class="mt-8 bg-red-600/10 p-6 rounded-xl border border-red-600">
+          <h4 class="text-xl font-bold text-red-500 mb-2">Need Help?</h4>
+          <p class="text-gray-300">
+            Whether it’s a cracked screen, a faulty battery, or you’re just not sure what’s wrong — 
+            our team is here to help. Reach out anytime and we’ll guide you through your options.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <form action="#" method="post" class="bg-zinc-900 p-8 rounded-2xl shadow-lg border-t-4 border-red-600 space-y-6">
+          <div>
+            <label for="name" class="block text-sm mb-1 text-gray-200">Full Name</label>
+            <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-600 border" required>
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm mb-1 text-gray-200">Email Address</label>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-600 border" required>
+          </div>
+
+          <div>
+            <label for="subject" class="block text-sm mb-1 text-gray-200">Subject</label>
+            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-600 border" required>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm mb-1 text-gray-200">Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-600 border" required></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-red-600 text-white font-semibold rounded-lg py-2 hover:bg-red-700 transition-colors">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
