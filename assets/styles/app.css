@@ -1,2 +1,4 @@
 @import "tailwindcss";
 @source not "../../public";
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import DataTable from 'datatables.net-dt';

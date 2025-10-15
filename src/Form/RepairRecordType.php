@@ -49,7 +49,7 @@ class RepairRecordType extends AbstractType
                 ],
                 'placeholder' => 'Select payment method',
                 'attr' => [
-                    'class' => 'w-full border border-gray-300 rounded-xl p-3 mb-3 bg-white focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
+                    'class' => 'text-red-700 w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
                 ],
             ])
             ->add('category', EntityType::class, [
@@ -58,7 +58,7 @@ class RepairRecordType extends AbstractType
                 'label' => 'Device Category',
                 'placeholder' => 'Select device category',
                 'attr' => [
-                    'class' => 'w-full border border-gray-300 rounded-xl p-3 mb-3 bg-white focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition text-sm',
+                    'class' => 'text-red-700 w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition text-sm',
                 ],
             ]);
     }

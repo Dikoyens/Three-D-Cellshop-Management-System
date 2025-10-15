@@ -4,7 +4,7 @@
 
 {% block body %}
 <section class="min-h-screen bg-black flex items-center justify-center py-12 px-6">
-  <div class="bg-zinc-600 w-full max-w-2xl rounded-2xl shadow-2xl p-10 border border-red-600">
+  <div class="bg-zinc-900 w-full max-w-2xl rounded-2xl shadow-2xl p-10 border border-red-600">
     <h1 class="text-3xl font-bold text-center text-red-600 mb-8 tracking-wide">
       Create New Delivery
     </h1>
@@ -13,13 +13,13 @@
       Fill out the delivery details below to log a new record.
     </p>
 
-    <div class="space-y-6 text-black">
+    <div class="space-y-6 text-white">
       {{ include('delivery/_form.html.twig', { button_label: 'Save Delivery' }) }}
     </div>
 
     <div class="flex justify-center mt-8">
       <a href="{{ path('app_delivery_index') }}" 
-         class="text-red-600 hover:text-red-700 transition font-medium">
+         class="text-red-700 hover:text-red-800 transition font-medium">
         ← Back to Delivery List
       </a>
     </div>

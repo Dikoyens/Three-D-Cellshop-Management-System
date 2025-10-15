@@ -12,11 +12,40 @@ use App\Repository\CategoryRepository;
 
 final class DashboardController extends AbstractController
 {
-    #[Route('/dashboard', name: 'app_dashboard')]
-    public function index(): Response
-    {
+    #[Route('/dashboard', name: 'app_dashboard_index', methods: ['GET'])]
+    public function dashboardIndex(
+        PartRepository $partRepository,
+        RepairRecordRepository $repairRecordRepository,
+        DeliveryRepository $deliveryRepository,
+        CategoryRepository $categoryRepository
+    ): Response {
+  
+        $partsCount = $partRepository->count([]);
+        $categoriesCount = $categoryRepository->count([]);
+        $deliveriesCount = $deliveryRepository->count([]);
+        $repairsCount = $repairRecordRepository->count([]);
+
+        $recentActivity = [
+            [
+                'date' => new \DateTime('-1 day'),
+                'action' => 'Added new part',
+                'entity' => 'Part',
+                'user' => 'Admin',
+            ],
+            [
+                'date' => new \DateTime('-2 days'),
+                'action' => 'Updated repair record',
+                'entity' => 'Repair',
+                'user' => 'Admin',
+            ],
+        ];
+
         return $this->render('dashboard/index.html.twig', [
-            'controller_name' => 'DashboardController',
+            'parts_count' => $partsCount,
+            'categories_count' => $categoriesCount,
+            'deliveries_count' => $deliveriesCount,
+            'repairs_count' => $repairsCount,
+            'recent_activity' => $recentActivity,
         ]);
     }
 

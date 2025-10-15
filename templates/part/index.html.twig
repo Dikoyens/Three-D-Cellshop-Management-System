@@ -3,13 +3,13 @@
 {% block title %}3D Cellshop - Parts Inventory{% endblock %}
 
 {% block body %}
-<section class="bg-white text-white min-h-screen py-16 px-6">
+<section class="bg-gray-900 text-red-600 min-h-screen py-2 px-2">
   <div class="max-w-6xl mx-auto">
-    <h1 class="text-4xl font-extrabold text-center text-red-600 mb-10 font-serif">Parts Inventory</h1>
+    <h1 class="text-4xl font-extrabold text-center text-red-600 mb-8 font-serif">Parts Inventory</h1>
 
-    <div class="overflow-x-auto bg-zinc-900 rounded-2xl shadow-lg border border-red-600">
-      <table class="w-full text-sm text-left text-gray-300">
-        <thead class="text-white bg-red-600">
+    <div class="overflow-x-auto bg-zinc-900  rounded-lg shadow-lg border border-red-600">
+      <table id="partsTable" class="w-full text-sm text-left bg-white">
+        <thead class="text-black bg-red-600">
           <tr>
             <th scope="col" class="px-6 py-3 font-semibold font-serif">ID</th>
             <th scope="col" class="px-6 py-3 font-semibold font-serif">Name</th>
@@ -18,30 +18,30 @@
             <th scope="col" class="px-6 py-3 font-semibold font-serif text-center">Actions</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-zinc-800">
+        <tbody class="divide-y divide-zinc-800 bg-zinc-900">
           {% for part in parts %}
-            <tr class="hover:bg-zinc-800 transition-colors">
-              <td class="px-6 py-3">{{ part.id }}</td>
-              <td class="px-6 py-3">{{ part.name }}</td>
-              <td class="px-6 py-3">{{ part.quantity }}</td>
-              <td class="px-6 py-3">₱{{ part.price|number_format(2, '.', ',') }}</td>
+            <tr class="hover:bg-gray-500 transition-colors">
+              <td class="px-6 py-3 text-white">{{ part.id }}</td>
+              <td class="px-6 py-3 text-white">{{ part.name }}</td>
+              <td class="px-6 py-3 text-white">{{ part.quantity }}</td>
+              <td class="px-6 py-3 text-white">₱{{ part.price|number_format(2, '.', ',') }}</td>
               <td class="px-6 py-3 text-center space-x-3">
                 <a href="{{ path('app_part_show', {'id': part.id}) }}" 
-                   class="text-green-400 hover:text-green-500 font-semibold transition">Show</a>
+                   class="text-green-600 hover:text-green-700 font-semibold transition">Show</a>
                 <a href="{{ path('app_part_edit', {'id': part.id}) }}" 
-                   class="text-yellow-400 hover:text-yellow-500 font-semibold transition">Edit</a>
+                   class="text-yellow-600 hover:text-yellow-700 font-semibold transition">Edit</a>
               </td>
             </tr>
           {% else %}
             <tr>
-              <td colspan="5" class="text-center py-6 text-gray-400">No parts found.</td>
+              <td colspan="5" class="text-center py-6 text-gray-500">No parts found.</td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
 
-    <div class="text-center mt-10">
+    <div class="text-center mt-8">
       <a href="{{ path('app_part_new') }}" 
          class="inline-block bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition">
         + Add New Part Stock
@@ -49,4 +49,19 @@
     </div>
   </div>
 </section>
+<script>
+$(document).ready(function () {
+    if (!$.fn.DataTable.isDataTable('#partsTable')) {
+        $('#partsTable').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50],
+            order: [[0, 'asc']],
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records..."
+            }
+        });
+    }
+});
+</script>
 {% endblock %}
