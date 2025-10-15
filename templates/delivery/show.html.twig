@@ -1,34 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Delivery{% endblock %}
+{% block title %}Delivery Details | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Delivery</h1>
+<div class="min-h-screen bg-black text-gray-100 flex items-center justify-center py-10">
+    <div class="w-full max-w-3xl bg-zinc-900 rounded-2xl shadow-xl border border-zinc-800 overflow-hidden">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 border-b border-zinc-800">
+            <h1 class="text-2xl font-semibold text-white">Delivery Details</h1>
+            <a href="{{ path('app_delivery_index') }}" 
+               class="text-sm font-medium text-red-500 hover:text-red-400 transition-colors">
+                ← Back to List
+            </a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ delivery.id }}</td>
-            </tr>
-            <tr>
-                <th>CustomerName</th>
-                <td>{{ delivery.customerName }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ delivery.status }}</td>
-            </tr>
-            <tr>
-                <th>DeliveryDate</th>
-                <td>{{ delivery.deliveryDate ? delivery.deliveryDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Details Table -->
+        <div class="p-6">
+            <table class="w-full border-collapse">
+                <tbody class="divide-y divide-zinc-800">
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400 w-1/3">ID</th>
+                        <td class="py-3 px-2">{{ delivery.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400">Customer Name</th>
+                        <td class="py-3 px-2">{{ delivery.customerName }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400">Status</th>
+                        <td class="py-3 px-2">
+                            {% if delivery.status == 'Delivered' %}
+                                <span class="text-green-400 font-semibold">Delivered</span>
+                            {% elseif delivery.status == 'Pending' %}
+                                <span class="text-yellow-400 font-semibold">Pending</span>
+                            {% elseif delivery.status == 'Cancelled' %}
+                                <span class="text-red-500 font-semibold">Cancelled</span>
+                            {% else %}
+                                <span class="text-gray-300">{{ delivery.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400">Delivery Date</th>
+                        <td class="py-3 px-2">
+                            {{ delivery.deliveryDate ? delivery.deliveryDate|date('Y-m-d H:i') : '—' }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_delivery_index') }}">back to list</a>
-
-    <a href="{{ path('app_delivery_edit', {'id': delivery.id}) }}">edit</a>
-
-    {{ include('delivery/_delete_form.html.twig') }}
+        <!-- Actions -->
+        <div class="flex justify-between items-center border-t border-zinc-800 p-6">
+            <div class="flex gap-4">
+                <a href="{{ path('app_delivery_edit', {'id': delivery.id}) }}" 
+                   class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-medium rounded-lg transition">
+                    Edit
+                </a>
+                {{ include('delivery/_delete_form.html.twig', { 
+                    'button_class': 'px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-sm text-gray-100 rounded-lg transition' 
+                }) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

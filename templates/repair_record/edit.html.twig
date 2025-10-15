@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit RepairRecord{% endblock %}
+{% block title %}Edit Repair Record | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Edit RepairRecord</h1>
+<div class="min-h-screen bg-black text-gray-100 flex items-center justify-center py-10">
+    <div class="w-full max-w-2xl bg-zinc-900 rounded-2xl shadow-xl border border-zinc-800 overflow-hidden">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-zinc-800 p-6">
+            <h1 class="text-2xl font-semibold text-white">Edit Repair Record</h1>
+            <a href="{{ path('app_repair_record_index') }}" 
+               class="text-sm font-medium text-red-500 hover:text-red-400 transition-colors">
+                ← Back to List
+            </a>
+        </div>
 
-    {{ include('repair_record/_form.html.twig', {'button_label': 'Update'}) }}
+        <!-- Form Section -->
+        <div class="p-6 space-y-6">
+            {{ include('repair_record/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
 
-    <a href="{{ path('app_repair_record_index') }}">back to list</a>
-
-    {{ include('repair_record/_delete_form.html.twig') }}
+        <!-- Footer -->
+        <div class="border-t border-zinc-800 p-6 flex justify-end">
+            {{ include('repair_record/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

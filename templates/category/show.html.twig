@@ -1,26 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}Category Details | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+<div class="min-h-screen bg-black text-gray-100 flex items-center justify-center py-10">
+    <div class="w-full max-w-3xl bg-zinc-900 rounded-2xl shadow-xl border border-zinc-800 overflow-hidden">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 border-b border-zinc-800">
+            <h1 class="text-2xl font-semibold text-white">Category Details</h1>
+            <a href="{{ path('app_category_index') }}" 
+               class="text-sm font-medium text-red-500 hover:text-red-400 transition-colors">
+                ← Back to List
+            </a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Table Section -->
+        <div class="p-6">
+            <table class="w-full border-collapse">
+                <tbody class="divide-y divide-zinc-800">
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400 w-1/3">ID</th>
+                        <td class="py-3 px-2">{{ category.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-left py-3 px-2 font-medium text-gray-400">Name</th>
+                        <td class="py-3 px-2">{{ category.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
-
-    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+        <!-- Actions -->
+        <div class="flex justify-between items-center border-t border-zinc-800 p-6">
+            <div class="flex gap-4">
+                <a href="{{ path('app_category_edit', {'id': category.id}) }}" 
+                   class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-medium rounded-lg transition">
+                    Edit
+                </a>
+                {{ include('category/_delete_form.html.twig', { 
+                    'button_class': 'px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-sm text-gray-100 rounded-lg transition' 
+                }) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
