@@ -20,7 +20,7 @@ class RepairRecordType extends AbstractType
             ->add('customerName', null, [
                 'label' => 'Customer Name',
                 'attr' => [
-                    'class' => 'w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
+                    'class' => ' text-black w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
                     'placeholder' => 'Enter customer name',
                 ],
             ])
@@ -29,7 +29,7 @@ class RepairRecordType extends AbstractType
                 'attr' => [
                     'pattern' => '[0-9]{11}',
                     'maxlength' => 11,
-                    'class' => 'w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
+                    'class' => 'text-black w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
                     'placeholder' => 'Enter 11-digit mobile number',
                 ],
             ])
@@ -37,7 +37,7 @@ class RepairRecordType extends AbstractType
                 'label' => 'Repair Details',
                 'attr' => [
                     'rows' => 4,
-                    'class' => 'w-full border border-gray-300 rounded-xl p-3 mb-3 resize-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
+                    'class' => 'text-black w-full border border-gray-300 rounded-xl p-3 mb-3 resize-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
                     'placeholder' => 'Describe the repair issue (e.g., screen replacement, battery problem, etc.)',
                 ],
             ])
@@ -49,7 +49,7 @@ class RepairRecordType extends AbstractType
                 ],
                 'placeholder' => 'Select payment method',
                 'attr' => [
-                    'class' => 'text-red-700 w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
+                    'class' => 'text-black w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition',
                 ],
             ])
             ->add('category', EntityType::class, [
@@ -58,7 +58,7 @@ class RepairRecordType extends AbstractType
                 'label' => 'Device Category',
                 'placeholder' => 'Select device category',
                 'attr' => [
-                    'class' => 'text-red-700 w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition text-sm',
+                    'class' => 'text-black w-full border border-gray-300 rounded-xl p-3 mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition text-sm',
                 ],
             ]);
     }

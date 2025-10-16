@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PartRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,17 @@ class Part
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
+
+    /**
+     * @var Collection<int, RepairRecord>
+     */
+    #[ORM\OneToMany(targetEntity: RepairRecord::class, mappedBy: 'partUsed')]
+    private Collection $repairRecords;
+
+    public function __construct()
+    {
+        $this->repairRecords = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,4 +76,5 @@ class Part
 
         return $this;
     }
+
 }

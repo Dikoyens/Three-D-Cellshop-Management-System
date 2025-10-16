@@ -14,20 +14,20 @@ class PartType extends AbstractType
         $builder
             ->add('name', null, [
                 'attr' => [
-                'class' => 'w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
+                'class' => ' text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
                 'placeholder' => 'Enter Part Name'
                 ]
             ])
             ->add('quantity', null, [
                 'attr' => [
-                'class' => 'w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
+                'class' => 'text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
                 'type' => 'number',
                 'min' => 1
                 ]
             ])
             ->add('price', null, [
                 'attr' => [
-                'class' => 'w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
+                'class' => 'text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
                 'type' => 'number',
                 'step' => '0.01',
                 'placeholder' => 'Enter Amount'

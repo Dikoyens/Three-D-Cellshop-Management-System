@@ -15,7 +15,7 @@ class DeliveryType extends AbstractType
         $builder
             ->add('customerName', null, [
                 'attr' => [
-                'class' => 'w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ',
+                'class' => ' text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ',
                 'placeholder' => 'Enter Customer Name'
                 ]
             ])
@@ -29,8 +29,11 @@ class DeliveryType extends AbstractType
                     'class' => 'text-red-700 w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none'
                 ]
             ])
-            ->add('deliveryDate')
-        ;
+            ->add('deliveryDate', null, [
+                'attr' => [
+                'class' => ' text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ',
+                ]
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -14,7 +14,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', null, [
                 'attr' => [
-                    'class' => 'w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
+                    'class' => 'text-black w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none',
                     'placeholder' => 'Enter Category Name (e.g., Iphone, Samsung)',
                 ],
                 'label' => 'Category Name',

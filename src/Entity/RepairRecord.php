@@ -27,9 +27,6 @@ class RepairRecord
     #[ORM\Column(length: 50)]
     private ?string $paymentMethod = null;
 
-    // #[ORM\Column(length: 255, nullable: true)]
-    // private ?string $partUsed = null;
-
     #[ORM\ManyToOne(inversedBy: 'repairRecords')]
     private ?Category $category = null;
 
@@ -86,18 +83,6 @@ class RepairRecord
         return $this;
     }
 
-    // public function getPartUsed(): ?string
-    // {
-    //     return $this->partUsed;
-    // }
-
-    // public function setPartUsed(string $partUsed): static
-    // {
-    //     $this->partUsed = $partUsed;
-
-    //     return $this;
-    // }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -109,4 +94,5 @@ class RepairRecord
 
         return $this;
     }
+
 }
