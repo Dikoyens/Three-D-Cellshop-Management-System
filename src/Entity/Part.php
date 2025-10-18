@@ -31,6 +31,7 @@ class Part
     #[ORM\OneToMany(targetEntity: RepairRecord::class, mappedBy: 'partUsed')]
     private Collection $repairRecords;
 
+
     public function __construct()
     {
         $this->repairRecords = new ArrayCollection();
@@ -76,5 +77,4 @@ class Part
 
         return $this;
     }
-
 }
