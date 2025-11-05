@@ -23,8 +23,7 @@
   </script>
 </head>
 
-
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-900 text-white font-sans">
 
 <div class="flex min-h-screen">
 
@@ -38,87 +37,89 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-1 space-y-2 font-serif text-xl">
+    <nav class="flex-1 space-y-2 font-serif text-lg">
 
-    <a href="{{ path('app_dashboard_index') }}" 
-      class="flex items-center space-x-2 p-2 rounded-lg transition
-      {% if app.request.attributes.get('_route') starts with 'app_dashboard'%}
-      bg-red-600 text-white shadow-md
-      {% else %}
-      text-red-600 hover:bg-gray-800 hover:text-white
-      {% endif %}">
-        <span>📊 Dashboard</span>
+      <a href="{{ path('app_dashboard_index') }}" 
+        class="flex items-center space-x-2 p-2 rounded-lg transition
+        {% if app.request.attributes.get('_route') starts with 'app_dashboard'%}
+        bg-red-600 text-white shadow-md
+        {% else %}
+        text-red-600 hover:bg-gray-800 hover:text-white
+        {% endif %}">
+          <span>📊 Dashboard</span>
       </a>
 
       <a href="{{ path('app_part_index') }}" 
-      class="flex items-center space-x-2 p-2 rounded-lg transition
-      {% if app.request.attributes.get('_route') starts with 'app_part'%}
-      bg-red-600 text-white shadow-md
-      {% else %}
-      text-red-600 hover:bg-gray-800 hover:text-white
-      {% endif %}">
-        <span>⚙️ Stock Parts</span>
+        class="flex items-center space-x-2 p-2 rounded-lg transition
+        {% if app.request.attributes.get('_route') starts with 'app_part'%}
+        bg-red-600 text-white shadow-md
+        {% else %}
+        text-red-600 hover:bg-gray-800 hover:text-white
+        {% endif %}">
+          <span>⚙️ Stock Parts</span>
       </a>
 
       <a href="{{ path('app_repair_record_index') }}"
-       class="flex items-center space-x-1 p-1 rounded-lg transition
+        class="flex items-center space-x-2 p-2 rounded-lg transition
         {% if app.request.attributes.get('_route') starts with 'app_repair_record'%}
-      bg-red-600 text-white shadow-md
-      {% else %}
-      text-red-600 hover:bg-gray-800 hover:text-white
-      {% endif %}">
-        <span>🔧 Repair Records</span>
+        bg-red-600 text-white shadow-md
+        {% else %}
+        text-red-600 hover:bg-gray-800 hover:text-white
+        {% endif %}">
+          <span>🔧 Repair Records</span>
       </a>
 
       <a href="{{ path('app_delivery_index') }}" 
-      class="flex items-center space-x-2 p-2 rounded-lg transition
-       {% if app.request.attributes.get('_route') starts with 'app_delivery'%}
-      bg-red-600 text-white shadow-md
-      {% else %}
-      text-red-600 hover:bg-gray-800 hover:text-white
-      {% endif %}">
-        <span>📦 Delivery Records</span>
+        class="flex items-center space-x-2 p-2 rounded-lg transition
+        {% if app.request.attributes.get('_route') starts with 'app_delivery'%}
+        bg-red-600 text-white shadow-md
+        {% else %}
+        text-red-600 hover:bg-gray-800 hover:text-white
+        {% endif %}">
+          <span>📦 Delivery Records</span>
       </a>
 
       <a href="{{ path('app_category_index') }}" 
-      class="flex items-center space-x-2 p-2 rounded-lg transition
-       {% if app.request.attributes.get('_route') starts with 'app_category'%}
-      bg-red-600 text-white shadow-md
-      {% else %}
-      text-red-600 hover:bg-gray-800 hover:text-white
-      {% endif %}">
-        <span>📱 Phone Categories</span>
+        class="flex items-center space-x-2 p-2 rounded-lg transition
+        {% if app.request.attributes.get('_route') starts with 'app_category'%}
+        bg-red-600 text-white shadow-md
+        {% else %}
+        text-red-600 hover:bg-gray-800 hover:text-white
+        {% endif %}">
+          <span>📱 Phone Categories</span>
       </a>
     </nav>
 
-    <!-- Footer  -->
+    <!-- Footer -->
     <div class="mt-auto pt-4 border-t border-gray-700">
-      <a href="{{ path('app_homepage') }}" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 transition">
-        <i class="fas fa-home text-red-500"></i>
+      <a href="{{ path('app_homepage') }}" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 transition text-red-500 hover:text-white">
+        <i class="fas fa-home"></i>
         <span>Back to Homepage</span>
       </a>
     </div>
   </aside>
 
   <!-- MAIN CONTENT AREA -->
-  <div class="flex flex-col flex-1 bg-gray-900 text-black">
+  <div class="flex flex-col flex-1 bg-zinc-950 text-white">
+
     <!-- TOP NAVBAR -->
-    <header class="bg-gray-900 shadow-md px-8 py-4 flex items-center justify-end">
-      <h2 class="text-xl font-semibold text-white">
-        Welcome, <span class="text-red-600 font-bold">Dyollz</span> 👋
+    <header class="bg-zinc-900 border-b border-zinc-800 px-8 py-4 flex items-center justify-end">
+      <h2 class="text-xl font-semibold">
+       Welcome, <span class="text-red-600 font-bold">{{ app.user.username|default('Guest') }}</span> 👋
       </h2>
     </header>
 
     <!-- MAIN BODY -->
     <main class="flex-1 p-8 overflow-y-auto">
-    <div class="bg-gray-900 rounded-2xl shadow-xl p-8">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl p-8">
         {% block body %}{% endblock %}
       </div>
     </main>
+
   </div>
 </div>
 
-<!-- Font Awesome for Icons -->
+<!-- Font Awesome & DataTables -->
 <script src="https://kit.fontawesome.com/a2d9d5a66a.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">

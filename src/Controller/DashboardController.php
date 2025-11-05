@@ -19,12 +19,24 @@ final class DashboardController extends AbstractController
         DeliveryRepository $deliveryRepository,
         CategoryRepository $categoryRepository
     ): Response {
-  
+
+        // ✅ Check if user is logged in
+        if (!$this->getUser()) {
+            // Show custom Access Denied page
+            return new Response(
+                'Access Denied: you must be logged in to access this area.',
+                Response::HTTP_FORBIDDEN
+            );
+        }
+         return new Response('Welcome to the dashboard! (Protected Area)');
+         
+        // ✅ Dashboard data counts
         $partsCount = $partRepository->count([]);
         $categoriesCount = $categoryRepository->count([]);
         $deliveriesCount = $deliveryRepository->count([]);
         $repairsCount = $repairRecordRepository->count([]);
 
+        // ✅ Example recent activity
         $recentActivity = [
             [
                 'date' => new \DateTime('-1 day'),
@@ -46,38 +58,6 @@ final class DashboardController extends AbstractController
             'deliveries_count' => $deliveriesCount,
             'repairs_count' => $repairsCount,
             'recent_activity' => $recentActivity,
-        ]);
-    }
-
-    #[Route('/parts', name: 'app_part_index', methods: ['GET'])]
-    public function partIndex(PartRepository $partRepository): Response
-    {
-        return $this->render('part/index.html.twig', [
-            'parts' => $partRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/repairs', name: 'app_repair_record_index', methods: ['GET'])]
-    public function repairRecordIndex(RepairRecordRepository $repairRecordRepository): Response
-    {
-        return $this->render('repair_record/index.html.twig', [
-            'repair_records' => $repairRecordRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/deliveries', name: 'app_delivery_index', methods: ['GET'])]
-    public function deliveryIndex(DeliveryRepository $deliveryRepository): Response
-    {
-        return $this->render('delivery/index.html.twig', [
-            'deliveries' => $deliveryRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/categories', name: 'app_category_index', methods: ['GET'])]
-    public function categoryIndex(CategoryRepository $categoryRepository): Response
-    {
-        return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
         ]);
     }
 }
